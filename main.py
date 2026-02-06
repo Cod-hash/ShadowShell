@@ -101,7 +101,14 @@ class BootSequence(ctk.CTkToplevel):
         super().__init__(parent)
         self.on_boot_complete = on_boot_complete
         self.title("")
-        self.state("zoomed")
+        # Tenta maximizar (Cross-Platform)
+        try:
+            self.state("zoomed")  #windows
+        except:
+            try:
+                self.attributes("-zoomed", True)   #Linux
+            except:
+                self.state("normal")  # Fallback se tudo der errado
         self.configure(fg_color="black")
         self.destroyed = False
 
